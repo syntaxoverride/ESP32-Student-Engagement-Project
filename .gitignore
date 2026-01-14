@@ -1,0 +1,20 @@
+# PlatformIO
+.pio/
+.vscode/
+*.elf
+*.bin
+*.hex
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+.sconsign.dblite
+build/
