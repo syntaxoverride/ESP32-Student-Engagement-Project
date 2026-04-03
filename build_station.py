@@ -87,8 +87,80 @@ def restore_platformio_ini(platformio_path, backup_path):
         shutil.copy2(backup_path, platformio_str)
         os.remove(backup_path)
 
+def print_banner():
+    print(f"\n{'='*60}")
+    print("  VaultGuard AI  -  ESP32 Station Builder")
+    print(f"{'='*60}")
+    print("  [1-99]  Flash a station number")
+    print("  [m]     Open serial monitor")
+    print("  [q]     Quit")
+    print(f"{'='*60}")
+
+
+def prompt_station():
+    """Prompt for station number. Returns (station_num, action) or None to quit."""
+    choice = input("\nEnter station number (or m/q): ").strip().lower()
+
+    if choice == 'q':
+        return None
+    if choice == 'm':
+        return (0, "monitor")
+
+    try:
+        station_num = int(choice)
+    except ValueError:
+        print("Error: Enter a number, 'm', or 'q'")
+        return prompt_station()
+
+    if station_num < 1:
+        print("Error: Station number must be 1 or greater")
+        return prompt_station()
+
+    return (station_num, "upload")
+
+
+def run_once(pio_cmd, station_num, action, platformio_path):
+    """Run a single build/upload/monitor cycle. Returns the exit code."""
+    backup_path = None
+
+    if action != "monitor":
+        backup_path = update_platformio_ini(station_num, platformio_path)
+        print(f"\n{'='*60}")
+        print(f"Building for Station #{station_num}")
+        print(f"Wi-Fi SSID will be: VaultGuard-AI {station_num}")
+        print(f"Portal Title will be: VaultGuard AI Portal #{station_num}")
+        print(f"{'='*60}\n")
+
+    if action == "build":
+        cmd = pio_cmd + ["run", "-e", "esp32dev"]
+    elif action == "upload":
+        cmd = pio_cmd + ["run", "--target", "upload", "-e", "esp32dev"]
+    elif action == "monitor":
+        cmd = pio_cmd + ["device", "monitor"]
+    else:
+        if backup_path:
+            restore_platformio_ini(platformio_path, backup_path)
+        print(f"Unknown action: {action}")
+        return 1
+
+    exit_code = 0
+    try:
+        result = subprocess.run(cmd, check=False)
+        exit_code = result.returncode
+    except KeyboardInterrupt:
+        print("\n\nCancelled by user")
+        exit_code = 1
+    except Exception as e:
+        print(f"Error running PlatformIO: {e}")
+        exit_code = 1
+    finally:
+        if backup_path:
+            restore_platformio_ini(platformio_path, backup_path)
+
+    return exit_code
+
+
 def main():
-    # Find PlatformIO command
     pio_cmd = find_pio_command()
     if not pio_cmd:
         print("Error: PlatformIO not found!")
@@ -101,82 +173,50 @@ def main():
         print("  - CLI: pip install platformio")
         print("  - Or: python3 -m pip install platformio")
         sys.exit(1)
-    
-    # Get station number from command line or prompt
+
+    script_dir = Path(__file__).parent
+    platformio_path = script_dir / "platformio.ini"
+
+    if not platformio_path.exists():
+        print(f"Error: platformio.ini not found at {platformio_path}")
+        sys.exit(1)
+
+    # If command-line args are provided, run once and exit (non-interactive)
     if len(sys.argv) > 1:
         try:
             station_num = int(sys.argv[1])
         except ValueError:
             print("Error: Station number must be an integer")
             sys.exit(1)
-    else:
-        # Prompt for station number
-        try:
-            station_num = int(input("Enter station number (1, 2, 3, etc.): "))
-        except ValueError:
-            print("Error: Station number must be an integer")
+        if station_num < 1:
+            print("Error: Station number must be 1 or greater")
             sys.exit(1)
-        except KeyboardInterrupt:
-            print("\nCancelled")
-            sys.exit(0)
-    
-    if station_num < 1:
-        print("Error: Station number must be 1 or greater")
-        sys.exit(1)
-    
-    # Determine action (build, upload, or both)
-    action = "upload"  # Default to upload
-    if len(sys.argv) > 2:
-        action = sys.argv[2].lower()
-    
-    # Get platformio.ini path
-    script_dir = Path(__file__).parent
-    platformio_path = script_dir / "platformio.ini"
-    
-    if not platformio_path.exists():
-        print(f"Error: platformio.ini not found at {platformio_path}")
-        sys.exit(1)
-    
-    # Update platformio.ini with station number
-    backup_path = update_platformio_ini(station_num, platformio_path)
-    
-    print(f"\n{'='*60}")
-    print(f"Building for Station #{station_num}")
-    print(f"Wi-Fi SSID will be: CyberLab-ESP32 {station_num}")
-    print(f"Portal Title will be: ESP32 Lab Portal #{station_num}")
-    print(f"{'='*60}\n")
-    
-    # Build PlatformIO command
-    if action == "build":
-        cmd = pio_cmd + ["run", "-e", "esp32dev"]
-    elif action == "upload":
-        # Upload and then start monitor automatically
-        cmd = pio_cmd + ["run", "--target", "upload", "--target", "monitor", "-e", "esp32dev"]
-    elif action == "monitor":
-        cmd = pio_cmd + ["device", "monitor"]
-    else:
-        # Restore before exiting
-        restore_platformio_ini(platformio_path, backup_path)
-        print(f"Unknown action: {action}")
-        print("Usage: python build_station.py [station_number] [build|upload|monitor]")
-        sys.exit(1)
-    
-    # Run the command
-    exit_code = 0
+        action = sys.argv[2].lower() if len(sys.argv) > 2 else "upload"
+        sys.exit(run_once(pio_cmd, station_num, action, platformio_path))
+
+    # Interactive loop
     try:
-        result = subprocess.run(cmd, check=False)
-        exit_code = result.returncode
+        while True:
+            print_banner()
+            selection = prompt_station()
+
+            if selection is None:
+                print("\nGoodbye!")
+                break
+
+            station_num, action = selection
+            exit_code = run_once(pio_cmd, station_num, action, platformio_path)
+
+            if exit_code == 0:
+                print(f"\n✓ Done successfully!")
+            else:
+                print(f"\n✗ Finished with errors (exit code {exit_code})")
+
+            input("\nPress Enter to return to menu...")
+
     except KeyboardInterrupt:
-        print("\n\nBuild cancelled by user")
-        exit_code = 1
-    except Exception as e:
-        print(f"Error running PlatformIO: {e}")
-        exit_code = 1
-    finally:
-        # Always restore platformio.ini
-        restore_platformio_ini(platformio_path, backup_path)
-    
-    sys.exit(exit_code)
+        print("\n\nGoodbye!")
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()

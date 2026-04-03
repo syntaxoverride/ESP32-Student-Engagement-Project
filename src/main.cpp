@@ -6,9 +6,7 @@
 #include "web/splash_html.h"
 #include "web/security_html.h"
 #include "web/security_dashboard_html.h"
-#include "web/captive_portal_html.h"
 #include "classifier/classifier.h"
-#include "portal/captive_portal.h"
 #include "stats/stats.h"
 #include "config/config.h"
 #include "sensors/sensors.h"
@@ -19,20 +17,19 @@
 #endif
 
 // Network configuration - SSID includes station number
-char AP_SSID[32];  // Dynamic SSID: "CyberLab-ESP32 1", "CyberLab-ESP32 2", etc.
+char AP_SSID[32];  // Dynamic SSID: "VaultGuard-AI 1", "VaultGuard-AI 2", etc.
 const IPAddress AP_IP(192, 168, 4, 1);
 const IPAddress AP_GATEWAY(192, 168, 4, 1);
 const IPAddress AP_SUBNET(255, 255, 255, 0);
 
 // Portal title - includes station number
 String getPortalTitle() {
-  return "ESP32 Lab Portal #" + String(STATION_NUMBER);
+  return "VaultGuard AI Portal #" + String(STATION_NUMBER);
 }
 
 // Server objects
 WebServer server(80);
 DNSServer dnsServer;
-CaptivePortal captivePortal;
 
 // Classifier strictness level (0=strict, 1=normal, 2=lenient)
 int strictnessLevel = 1; // Default: normal
@@ -47,7 +44,7 @@ String replaceHTMLPlaceholder(const String& html, const String& placeholder, con
 // Forward declarations
 void handleRoot();
 void handleSplash();
-void handleCyberLab();
+void handleVaultGuard();
 void handleSecurity();
 void handleSecurityDashboard();
 void handleSecurityAPI();
@@ -71,12 +68,12 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
   
-  Serial.println("\n=== ESP32 AI Phishing Detector ===");
+  Serial.println("\n=== VaultGuard AI ===");
   Serial.print("Station Number: ");
   Serial.println(STATION_NUMBER);
   
   // Build SSID with station number
-  snprintf(AP_SSID, sizeof(AP_SSID), "CyberLab-ESP32 %d", STATION_NUMBER);
+  snprintf(AP_SSID, sizeof(AP_SSID), "VaultGuard-AI %d", STATION_NUMBER);
   
   // Initialize configuration
   ConfigManager::initialize();
@@ -97,24 +94,21 @@ void setup() {
   Serial.print("AP IP: ");
   Serial.println(AP_IP);
   
-  // Setup DNS server for captive portal
+  // Setup DNS server (resolves all domains to AP IP)
   dnsServer.start(53, "*", AP_IP);
   
   // Setup mDNS for friendly domain name
-  if (MDNS.begin("cyberlab")) {
+  if (MDNS.begin("vaultguard")) {
     Serial.println("mDNS responder started");
-    Serial.println("Access via: http://cyberlab.local");
+    Serial.println("Access via: http://vaultguard.local");
     MDNS.addService("http", "tcp", 80);
   } else {
     Serial.println("mDNS failed to start");
   }
   
-  // Setup captive portal handlers
-  captivePortal.setup(&server);
-  
   // Setup web server routes
   server.on("/", handleSplash);  // Splash page with menu
-  server.on("/cyberlab", handleCyberLab);  // Cyber Lab (phishing detector)
+  server.on("/vaultguard", handleVaultGuard);  // VaultGuard AI (phishing detector)
   server.on("/security", handleSecurity);  // Security Center menu
   server.on("/security/door", handleSecurityDashboard);  // Door sensor dashboard
   server.on("/security/touch", handleSecurityDashboard);  // Door sensor dashboard (alias)
@@ -158,11 +152,11 @@ void handleSplash() {
   String html = String(SPLASH_HTML);
   String title = getPortalTitle();
   // Replace title in both <title> tag and <h1> heading
-  html.replace("ESP32 LAB PORTAL", title);
+  html.replace("VAULTGUARD AI PORTAL", title);
   server.send(200, "text/html", html);
 }
 
-void handleCyberLab() {
+void handleVaultGuard() {
   server.send(200, "text/html", INDEX_HTML);
 }
 
@@ -628,10 +622,5 @@ void handleFacilitatorReset() {
 }
 
 void handleNotFound() {
-  // For captive portal, show welcome page
-  if (captivePortal.isCaptivePortalRequest(&server)) {
-    server.send(200, "text/html", CAPTIVE_PORTAL_HTML);
-  } else {
-    server.send(404, "text/plain", "Not found");
-  }
+  server.send(404, "text/plain", "Not found");
 }

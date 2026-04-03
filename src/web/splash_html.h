@@ -9,7 +9,7 @@ const char SPLASH_HTML[] PROGMEM = R"rawliteral(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESP32 LAB PORTAL</title>
+    <title>VAULTGUARD AI PORTAL</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
@@ -199,13 +199,13 @@ const char SPLASH_HTML[] PROGMEM = R"rawliteral(
 </head>
 <body>
     <div class="container">
-        <h1>ESP32 LAB PORTAL</h1>
-        <p class="subtitle">CYBERLAB.ESP32 // ACCESS: CYBERLAB.LOCAL</p>
+        <h1>VAULTGUARD AI PORTAL</h1>
+        <p class="subtitle">VAULTGUARD.AI // ACCESS: VAULTGUARD.LOCAL</p>
         
         <div class="menu-grid">
-            <a href="/cyberlab" class="menu-square cyber">
+            <a href="/vaultguard" class="menu-square cyber">
                 <div class="menu-icon">⚡</div>
-                <div class="menu-title">Cyber Lab</div>
+                <div class="menu-title">VaultGuard AI</div>
                 <div class="menu-description">AI Phishing Detector<br>Analyze messages for security threats</div>
             </a>
             

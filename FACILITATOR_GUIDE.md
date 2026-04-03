@@ -2,7 +2,7 @@
 
 ## Overview
 
-Everything you need to run a successful 2-hour outreach session where students customize the ESP32 AI Phishing Detector through a web-based Builder interface.
+Everything you need to run a successful 2-hour outreach session where students customize the VaultGuard AI system through a web-based Builder interface.
 
 ## Pre-Session Setup
 
@@ -25,8 +25,8 @@ Test the system before students arrive:
 
 1. Power on ESP32
 2. Wait 30 seconds for startup
-3. Connect to `CyberLab-ESP32` Wi-Fi on your phone
-4. Navigate to `http://cyberlab.local` (or `http://192.168.4.1`)
+3. Connect to `VaultGuard-AI` Wi-Fi on your phone
+4. Navigate to `http://vaultguard.local` (or `http://192.168.4.1`)
 5. Verify all tabs load correctly:
    - Analyzer
    - Statistics
@@ -34,7 +34,7 @@ Test the system before students arrive:
    - Learn
    - Quiz
    - Builder
-6. Test facilitator reset: `http://cyberlab.local/reset`
+6. Test facilitator reset: `http://vaultguard.local/reset`
    - Password: `RESET2025`
 
 ### Room Setup
@@ -403,14 +403,14 @@ After assembly, verify everything works:
    - "You can choose which lab to explore first, or try both!"
 
 2. **Connection (5 min)**
-   - "Connect to Wi-Fi: CyberLab-ESP32"
-   - "Open browser to cyberlab.local or 192.168.4.1"
+   - "Connect to Wi-Fi: VaultGuard-AI"
+   - "Open browser to vaultguard.local or 192.168.4.1"
    - Help students who have connection issues
-   - "You'll see a splash page with two options: Cyber Lab and Security Center"
+   - "You'll see a splash page with two options: VaultGuard AI and Security Center"
 
 3. **Exploration (15 min)**
 
-   **Option A: Cyber Lab (AI Phishing Detector)**
+   **Option A: VaultGuard AI (AI Phishing Detector)**
    - Guide students through tabs:
      - **Analyzer**: Try sample messages, see how scoring works
      - **Statistics**: View patterns in detected signals
@@ -441,7 +441,7 @@ After assembly, verify everything works:
 - Point out the engaging UI design
 - Encourage experimentation in both labs
 
-**What to Look For - Cyber Lab**:
+**What to Look For - VaultGuard AI**:
 - Students should see risk scores (0-100%) for each message
 - "Safe" messages score below 60%, "Suspicious" messages score above 60%
 - Each analysis shows detected signals (urgency, links, etc.)
@@ -453,7 +453,7 @@ After assembly, verify everything works:
 - Status changes update in real-time on the dashboard
 - Students can physically interact with sensors (touch door sensor, tap vibration sensor)
 
-**Common Questions & Answers - Cyber Lab**:
+**Common Questions & Answers - VaultGuard AI**:
 - **"Why does this message say 'Safe' but has a score?"** - Even safe messages can have some suspicious elements, but not enough to trigger the threshold.
 - **"What do the percentages mean?"** - Higher percentage = more suspicious. The system adds up points from different signals.
 - **"Can I analyze my own message?"** - Yes! Type or paste any message in the Analyzer tab.
@@ -801,7 +801,7 @@ After assembly, verify everything works:
 
 ## Security Center Activities (Alternative/Additional Track)
 
-**Note**: Students can explore the Security Center alongside or instead of the Cyber Lab activities. The Security Center focuses on physical security sensors and real-time monitoring.
+**Note**: Students can explore the Security Center alongside or instead of the VaultGuard AI activities. The Security Center focuses on physical security sensors and real-time monitoring.
 
 ### Security Center Overview
 
@@ -840,7 +840,7 @@ The Security Center simulates a bank vault monitoring system with two sensors:
 - "How does the door sensor know when it's touched?"
 - "Why would a bank vault need a vibration sensor?"
 - "What happens if someone tries to break in?"
-- "How is this different from the Cyber Lab's detection system?"
+- "How is this different from the VaultGuard AI's detection system?"
 
 ### Activity 2: Monitoring Security Events (15 minutes)
 
@@ -905,7 +905,7 @@ The Security Center simulates a bank vault monitoring system with two sensors:
 
 **Objective**: Students understand the relationship between digital and physical security
 
-**Task**: "Compare the Cyber Lab and Security Center"
+**Task**: "Compare the VaultGuard AI and Security Center"
 
 **Comparison Questions**:
 1. How are they similar?
@@ -915,7 +915,7 @@ The Security Center simulates a bank vault monitoring system with two sensors:
    - Both need tuning
 
 2. How are they different?
-   - Cyber Lab: Digital threats, text analysis, software-based
+   - VaultGuard AI: Digital threats, text analysis, software-based
    - Security Center: Physical threats, sensor data, hardware-based
 
 3. How do they work together?
@@ -1003,8 +1003,8 @@ Connect to actual systems:
 - Try restarting ESP32 (unplug and replug power)
 
 **If still not working**:
-- Use IP address: 192.168.4.1 instead of cyberlab.local
-- Check if Wi-Fi network name matches: `CyberLab-ESP32` (or `CyberLab-ESP32 1`, etc. if customized)
+- Use IP address: 192.168.4.1 instead of vaultguard.local
+- Check if Wi-Fi network name matches: `VaultGuard-AI` (or `VaultGuard-AI 1`, etc. if customized)
 - Try a different device to test if it's device-specific
 
 ### Problem: Builder changes don't work
@@ -1023,7 +1023,7 @@ Connect to actual systems:
 ### Problem: Portal doesn't open automatically
 
 **Solutions**:
-- Manually navigate to cyberlab.local or 192.168.4.1
+- Manually navigate to vaultguard.local or 192.168.4.1
 - Clear browser cache (or try incognito/private mode)
 - Try different browser (Chrome, Safari, Firefox)
 - Some devices don't support `.local` domains - always use IP address as backup
@@ -1068,7 +1068,7 @@ Reset the system in these situations:
 
 Follow these steps:
 
-1. Navigate to: `http://cyberlab.local/reset` (or `http://192.168.4.1/reset`)
+1. Navigate to: `http://vaultguard.local/reset` (or `http://192.168.4.1/reset`)
 2. Enter password: `RESET2025`
 3. Click "RESET SYSTEM"
 4. Wait for confirmation message
@@ -1136,15 +1136,15 @@ Consider these questions after the session:
 
 Keep these handy during the session:
 
-- Main Portal: `http://cyberlab.local` or `http://192.168.4.1`
-- Facilitator Reset: `http://cyberlab.local/reset` (hidden URL)
+- Main Portal: `http://vaultguard.local` or `http://192.168.4.1`
+- Facilitator Reset: `http://vaultguard.local/reset` (hidden URL)
 - Password: `RESET2025`
 
 ### Wi-Fi Network
 
 Network details:
 
-- SSID: `CyberLab-ESP32` (or `CyberLab-ESP32 1`, `CyberLab-ESP32 2`, etc. if customized)
+- SSID: `VaultGuard-AI` (or `VaultGuard-AI 1`, `VaultGuard-AI 2`, etc. if customized)
 - Password: None (open network)
 
 ### Session Timing
@@ -1161,7 +1161,7 @@ Phase breakdown:
 
 Help students navigate:
 
-**Cyber Lab (AI Phishing Detector)**:
+**VaultGuard AI (AI Phishing Detector)**:
 - **Analyzer**: Test messages and see risk scores
 - **Statistics**: View patterns across all analyzed messages
 - **Challenge**: Try to create messages that fool the detector

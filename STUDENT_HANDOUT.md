@@ -1,4 +1,4 @@
-# Student Guide: Smart Cyber Intelligence Lab
+# Student Guide: VaultGuard AI
 
 ## Welcome!
 
@@ -63,15 +63,15 @@ Your facilitator will guide you through assembling the breadboard. Here's what y
 Follow these steps to get connected:
 
 1. Open Wi-Fi settings on your device
-2. Connect to: **CyberLab-ESP32** (or **CyberLab-ESP32 1**, **CyberLab-ESP32 2**, etc. if your facilitator tells you a specific number)
+2. Connect to: **VaultGuard-AI** (or **VaultGuard-AI 1**, **VaultGuard-AI 2**, etc. if your facilitator tells you a specific number)
 3. Open a web browser
-4. Go to: **cyberlab.local** (or **192.168.4.1** if cyberlab.local doesn't work)
+4. Go to: **vaultguard.local** (or **192.168.4.1** if vaultguard.local doesn't work)
 
 ### Step 2: Choose Your Lab
 
 Once connected, you'll see a splash page with two options:
 
-**Option A: Cyber Lab (AI Phishing Detector)**
+**Option A: VaultGuard AI (AI Phishing Detector)**
 - **Analyzer**: Test messages to see if they're suspicious
 - **Statistics**: See patterns in detected threats
 - **Challenge**: Try to fool the detector!
@@ -281,7 +281,7 @@ If you chose the Security Center, try these hands-on activities!
 - Both need monitoring
 
 **Differences**:
-- Cyber Lab: Digital threats, text analysis, software-based
+- VaultGuard AI: Digital threats, text analysis, software-based
 - Security Center: Physical threats, sensor data, hardware-based
 
 **Think About**:
@@ -297,10 +297,10 @@ If you chose the Security Center, try these hands-on activities!
 
 As you work through the activities, you're learning:
 
-- **Pattern Recognition**: How computers find patterns in text (Cyber Lab) and sensor data (Security Center)
+- **Pattern Recognition**: How computers find patterns in text (VaultGuard AI) and sensor data (Security Center)
 - **Rule-Based Systems**: Using rules to make decisions
-- **Algorithm Tuning**: Adjusting parameters to change behavior (Cyber Lab)
-- **Data Structures**: How keywords and messages are stored (Cyber Lab)
+- **Algorithm Tuning**: Adjusting parameters to change behavior (VaultGuard AI)
+- **Data Structures**: How keywords and messages are stored (VaultGuard AI)
 - **Sensor Integration**: How hardware sensors connect to software systems (Security Center)
 - **Real-Time Monitoring**: Processing and displaying live data (Security Center)
 
@@ -308,8 +308,8 @@ As you work through the activities, you're learning:
 
 You're also exploring security concepts:
 
-- **Phishing Detection**: How to spot suspicious messages (Cyber Lab)
-- **Threat Signals**: What makes a message dangerous (Cyber Lab)
+- **Phishing Detection**: How to spot suspicious messages (VaultGuard AI)
+- **Threat Signals**: What makes a message dangerous (VaultGuard AI)
 - **False Positives/Negatives**: Tradeoffs in security systems (both labs)
 - **Defense Strategies**: Multiple layers of protection (both labs)
 - **Access Control**: Monitoring who can access secure areas (Security Center)
@@ -373,13 +373,13 @@ Use these strategies to get the most out of the activity:
 
 If you're having trouble connecting:
 
-- Make sure you're connected to CyberLab-ESP32 Wi-Fi
+- Make sure you're connected to VaultGuard-AI Wi-Fi
 - Try the IP address: 192.168.4.1
 - Move closer to the ESP32 device
 - Wait 30 seconds after powering on ESP32
 - Ask your facilitator for help
 
-### Cyber Lab: Changes not working?
+### VaultGuard AI: Changes not working?
 
 If your customizations aren't showing up:
 
@@ -401,7 +401,7 @@ If the sensors don't respond:
 
 If the system seems broken:
 
-- **Cyber Lab**: Use "Reset to Defaults" button in Builder tab (this only resets your changes, not the whole system)
+- **VaultGuard AI**: Use "Reset to Defaults" button in Builder tab (this only resets your changes, not the whole system)
 - **Security Center**: Try refreshing the page or ask facilitator for help
 - **Both**: Ask your facilitator for help
 

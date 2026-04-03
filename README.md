@@ -1,6 +1,6 @@
-# SCIL: Smart Cyber Intelligence Lab
+# VaultGuard AI
 
-Welcome to SCIL! Get ready to build your own intelligent security system from the ground up. In this hands-on lab, you'll work with ESP32 microcontrollers to create two powerful security tools: a smart phishing email detector and a real-time bank vault monitoring system.
+Welcome to VaultGuard AI! Get ready to build your own intelligent security system from the ground up. In this hands-on lab, you'll work with ESP32 microcontrollers to create two powerful security tools: a smart phishing email detector and a real-time bank vault monitoring system.
 
 You'll start by building a web-based phishing detector that you can customize with your own rules and keywords. Then, you'll set up sensors to monitor a bank vault, tracking door access and detecting any suspicious vibrations. Along the way, you'll dive into engineering principles, computer science concepts, cybersecurity fundamentals, and even some AI-driven decision-making.
 
@@ -8,11 +8,11 @@ Whether you're a beginner or have some experience, this lab is designed to be ap
 
 ---
 
-## ESP32 CyberLab Portal
+## VaultGuard AI Portal
 
 An outreach-friendly, hands-on project for grades 7–12 that combines computer science, cybersecurity, and AI concepts using an ESP32-WROOM. The device hosts a local Wi-Fi access point with two interactive labs:
 
-1. **Cyber Lab**: AI Phishing Detector - Analyze messages for phishing threats
+1. **VaultGuard AI**: AI Phishing Detector - Analyze messages for phishing threats
 2. **Security Center**: Bank Vault Security System - Access control and intrusion detection
 
 ## Features
@@ -22,7 +22,6 @@ An outreach-friendly, hands-on project for grades 7–12 that combines computer 
 - **Explainable AI**: Provides risk scores with detailed reasons (urgency language, credential requests, etc.)
 - **Adjustable Strictness**: Three levels (Strict, Normal, Lenient) to demonstrate tradeoffs
 - **Mobile-First UI**: Optimized for phones and tablets with large tap targets
-- **Captive Portal**: Automatic redirect for most devices, with manual fallback
 - **Web-Based Builder**: Students customize the system through a visual interface - no coding required!
 - **Runtime Configuration**: Modify keywords, scoring, samples, themes, and quiz questions in real-time
 - **Facilitator Reset**: Password-protected reset for quick cleanup between groups
@@ -34,10 +33,10 @@ An outreach-friendly, hands-on project for grades 7–12 that combines computer 
    - Touch sensor: GPIO 4 (built-in, no wiring needed)
    - Vibration sensor: GPIO 27 (SW-420 module)
 3. **Power on** the ESP32 (USB cable or power adapter)
-4. **Connect** to Wi-Fi network: `CyberLab-ESP32` (or `CyberLab-ESP32 1`, `CyberLab-ESP32 2`, etc. if customized)
-5. **Open browser** to `http://cyberlab.local` or `http://192.168.4.1` (or let captive portal redirect)
+4. **Connect** to Wi-Fi network: `VaultGuard-AI` (or `VaultGuard-AI 1`, `VaultGuard-AI 2`, etc. if customized)
+5. **Open browser** to `http://vaultguard.local` or `http://192.168.4.1`
 6. **Choose a lab**:
-   - **Cyber Lab**: Analyze messages for phishing threats
+   - **VaultGuard AI**: Analyze messages for phishing threats
    - **Security Center**: Monitor bank vault security system
 
 ## Requirements
@@ -130,9 +129,9 @@ pio device monitor         # View serial output
    - Or: `pio device monitor`
 2. You should see:
    ```
-   === ESP32 AI Phishing Detector ===
+   === VaultGuard AI ===
    Station Number: 1
-   AP SSID: CyberLab-ESP32 1
+   AP SSID: VaultGuard-AI 1
    AP IP: 192.168.4.1
    HTTP server started
    Ready for connections!
@@ -140,10 +139,8 @@ pio device monitor         # View serial output
 
 ### Part 6: Testing the Device
 
-1. **Connect to Wi-Fi**: Look for network `CyberLab-ESP32` (or `CyberLab-ESP32 1`, etc.)
-2. **Access Portal**:
-   - **Option A**: Captive portal should open automatically
-   - **Option B**: Manually navigate to `http://cyberlab.local` or `http://192.168.4.1`
+1. **Connect to Wi-Fi**: Look for network `VaultGuard-AI` (or `VaultGuard-AI 1`, etc.)
+2. **Access Portal**: Navigate to `http://vaultguard.local` or `http://192.168.4.1`
 3. **Test Interface**: Try analyzing sample messages
 
 ## Security Center Pinout Guide
@@ -259,8 +256,8 @@ pio run --target upload -e esp32dev --build-flags="-DSTATION_NUMBER=15"
 ```
 
 **Result:**
-- **Wi-Fi SSID**: `CyberLab-ESP32 1`, `CyberLab-ESP32 15`, etc.
-- **Portal Title**: `ESP32 Lab Portal #1`, `ESP32 Lab Portal #15`, etc.
+- **Wi-Fi SSID**: `VaultGuard-AI 1`, `VaultGuard-AI 15`, etc.
+- **Portal Title**: `VaultGuard AI Portal #1`, `VaultGuard AI Portal #15`, etc.
 
 ## Project Structure
 
@@ -279,9 +276,6 @@ ESP-32/
     ├── config/
     │   ├── config.h       # Configuration management
     │   └── config.cpp
-    ├── portal/
-    │   ├── captive_portal.h
-    │   └── captive_portal.cpp
     ├── sensors/
     │   ├── sensors.h      # Security Center sensors
     │   └── sensors.cpp     # Touch & vibration sensor logic
@@ -289,19 +283,18 @@ ESP-32/
     │   ├── stats.h        # Statistics tracking
     │   └── stats.cpp
     └── web/
-        ├── index_html.h           # Cyber Lab UI
+        ├── index_html.h           # VaultGuard AI UI
         ├── splash_html.h          # Main menu
         ├── security_html.h        # Security Center menu
-        ├── security_dashboard_html.h  # Security dashboards
-        └── captive_portal_html.h  # Custom captive portal
+        └── security_dashboard_html.h  # Security dashboards
 ```
 
 ## How It Works
 
-### Cyber Lab (AI Phishing Detector)
+### VaultGuard AI (AI Phishing Detector)
 
-1. **Wi-Fi Access Point**: ESP32 creates an open Wi-Fi network named `CyberLab-ESP32`
-2. **Captive Portal**: DNS server redirects all requests to the ESP32's web server
+1. **Wi-Fi Access Point**: ESP32 creates an open Wi-Fi network named `VaultGuard-AI`
+2. **DNS Redirect**: DNS server directs all requests to the ESP32's web server
 3. **Web Interface**: Students access a mobile-friendly webpage to analyze messages
 4. **Classifier Engine**: Rule-based scoring system analyzes messages for phishing indicators:
    - Urgency language
@@ -352,8 +345,8 @@ The interface includes 6 pre-loaded sample messages:
 This project is designed for a **2-hour hands-on session** where students customize the phishing detector through a web-based Builder interface. See [FACILITATOR_GUIDE.md](FACILITATOR_GUIDE.md) for complete session plans.
 
 **Key Activities**:
-- **Cyber Lab**: Students modify keywords, scoring weights, and sample messages
-- **Cyber Lab**: Create custom themes and quiz questions
+- **VaultGuard AI**: Students modify keywords, scoring weights, and sample messages
+- **VaultGuard AI**: Create custom themes and quiz questions
 - **Security Center**: Monitor access control and intrusion detection
 - **Security Center**: Learn about physical security systems and sensors
 - **Both Labs**: Understand CS concepts: pattern recognition, algorithm tuning, rule-based systems, sensor integration
@@ -363,13 +356,13 @@ This project is designed for a **2-hour hands-on session** where students custom
 
 1. Power on ESP32
 2. Wait 30 seconds for startup
-3. Tell students: "Connect to Wi-Fi: CyberLab-ESP32"
-4. If portal doesn't open: "Go to cyberlab.local or 192.168.4.1"
+3. Tell students: "Connect to Wi-Fi: VaultGuard-AI"
+4. Tell students: "Open your browser and go to vaultguard.local or 192.168.4.1"
 5. Students choose a lab:
-   - **Cyber Lab**: Phishing detection and analysis
+   - **VaultGuard AI**: Phishing detection and analysis
    - **Security Center**: Bank vault security monitoring
 6. Guide students through activities in their chosen lab
-7. Use facilitator reset between groups: `http://cyberlab.local/reset` (password: `RESET2025`)
+7. Use facilitator reset between groups: `http://vaultguard.local/reset` (password: `RESET2025`)
 
 ### Builder Tab Features
 
@@ -389,7 +382,7 @@ All changes are in-memory and reset on reboot. Students can experiment freely!
 - Resets only student customizations
 
 **Facilitator Reset** (between groups):
-1. Navigate to: `http://cyberlab.local/reset`
+1. Navigate to: `http://vaultguard.local/reset`
 2. Enter password: `RESET2025`
 3. Click "RESET SYSTEM"
 4. Resets everything: configs, statistics, all customizations
@@ -402,27 +395,26 @@ All changes are in-memory and reset on reboot. Students can experiment freely!
 
 ## Troubleshooting
 
-### Can't see "CyberLab-ESP32" Wi-Fi network
+### Can't see "VaultGuard-AI" Wi-Fi network
 
 **Solutions:**
-1. Check Serial Monitor - does it show "AP SSID: CyberLab-ESP32"?
+1. Check Serial Monitor - does it show "AP SSID: VaultGuard-AI"?
 2. If not, the firmware may not have uploaded correctly - try uploading again
 3. Move closer to the ESP32 (range is limited, ~30-50 feet)
 4. Restart the ESP32 (unplug and replug USB, or press RESET button)
 
-### Portal doesn't open automatically
+### Page won't load
 
 **Solutions:**
-1. Manually navigate to: `http://cyberlab.local` or `http://192.168.4.1`
-2. Try: `http://192.168.4.1/`
+1. Navigate to: `http://vaultguard.local` or `http://192.168.4.1`
+2. If `vaultguard.local` doesn't work, use the IP address `192.168.4.1` instead
 3. Clear browser cache and try again
 4. Try a different browser
-5. **Note**: If `cyberlab.local` doesn't work, use the IP address `192.168.4.1` instead
 
 ### "Unable to connect" or page won't load
 
 **Solutions:**
-1. Verify you're connected to "CyberLab-ESP32" Wi-Fi
+1. Verify you're connected to "VaultGuard-AI" Wi-Fi
 2. Check Serial Monitor for errors
 3. Try restarting the ESP32
 4. Make sure no firewall is blocking local network access
@@ -486,13 +478,13 @@ All changes are in-memory and reset on reboot. Students can experiment freely!
 - **Auto-scroll**: Enabled
 
 ### Default Network Settings
-- **SSID**: CyberLab-ESP32 (or CyberLab-ESP32 1, 2, etc. if customized)
+- **SSID**: VaultGuard-AI (or VaultGuard-AI 1, 2, etc. if customized)
 - **IP Address**: 192.168.4.1
 - **Password**: None (open network)
 
 ### Key URLs
-- **Portal**: http://cyberlab.local (or http://192.168.4.1)
-- **Facilitator Reset**: http://cyberlab.local/reset (password: `RESET2025`)
+- **Portal**: http://vaultguard.local (or http://192.168.4.1)
+- **Facilitator Reset**: http://vaultguard.local/reset (password: `RESET2025`)
 - **Note**: Some devices may not support `.local` domains - use IP address as fallback
 
 ### Reset Procedure

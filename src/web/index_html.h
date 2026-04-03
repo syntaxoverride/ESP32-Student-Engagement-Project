@@ -9,7 +9,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBERLAB // AI PHISHING DETECTOR</title>
+    <title>VAULTGUARD AI // PHISHING DETECTOR</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
         :root {
@@ -699,7 +699,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
             <a href="/" style="display: inline-block; padding: 8px 16px; background: rgba(0,255,255,0.1); border: 1px solid #00ffff; color: #00ffff; text-decoration: none; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; transition: all 0.3s;" onmouseover="this.style.background='rgba(0,255,255,0.2)'; this.style.boxShadow='0 0 10px rgba(0,255,255,0.5)'" onmouseout="this.style.background='rgba(0,255,255,0.1)'; this.style.boxShadow='none'">← BACK TO MENU</a>
         </div>
         <h1>AI PHISHING DETECTOR</h1>
-        <p class="subtitle">CYBERLAB.ESP32 // ACCESS: CYBERLAB.LOCAL</p>
+        <p class="subtitle">VAULTGUARD.AI // ACCESS: VAULTGUARD.LOCAL</p>
         
         <div class="tabs">
             <button class="tab active" onclick="switchTab(0)">Analyzer</button>
