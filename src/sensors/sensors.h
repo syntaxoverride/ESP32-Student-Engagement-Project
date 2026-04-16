@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 // Pin definitions - SECURITY CENTER
-#define DOOR_SENSOR_PIN 4         // Touch switch / door sensor (GPIO 4) - Right side
+#define DOOR_SENSOR_PIN 14        // Touch switch / door sensor (GPIO 14)
 #define VIBRATION_SENSOR_PIN 27   // Vibration sensor digital output (GPIO 27) - Left side, SAFE PIN
 
 // Door sensor type: true = digital touch switch, false = capacitive touch
@@ -25,24 +25,24 @@ struct VibrationData {
 };
 
 // Interrupt handler for vibration sensor (must be in global scope)
-void IRAM_ATTR vibrationInterruptHandler();
+void vibrationInterruptHandler();
 
 class SensorManager {
 public:
   static void initialize();
   static DoorData readDoor();
   static VibrationData readVibration();
-  
+
   // Interrupt-related (accessible by ISR)
   static volatile bool vibrationTriggered;
   static volatile unsigned long lastInterruptTime;
-  
+
 private:
   static bool doorInitialized;
   static bool vibrationInitialized;
   static unsigned long lastVibrationTime;
   static int vibrationCount;
-  
+
   // Door sensor reading
   static int readDoorRaw();
 };

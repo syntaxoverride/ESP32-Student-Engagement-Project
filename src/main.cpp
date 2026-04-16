@@ -145,7 +145,7 @@ void setup() {
 void loop() {
   dnsServer.processNextRequest();
   server.handleClient();
-  delay(10);
+  delay(2);
 }
 
 void handleSplash() {

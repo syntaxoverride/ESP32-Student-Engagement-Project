@@ -300,7 +300,7 @@ const char SECURITY_DASHBOARD_HTML[] PROGMEM = R"rawliteral(
                         <div class="security-description">
                             <strong>Status:</strong> ${data.detected ? 'Vibration detected' : 'No vibration'}<br>
                             <strong>Alert Level:</strong> ${data.alert ? 'BREAK-IN ATTEMPT' : data.detected ? 'Monitoring' : 'All clear'}<br><br>
-                            <em>Multiple vibrations detected may indicate a break-in attempt. System will alert if pattern detected.</em>
+                            <em>Breach alert triggers after 3+ vibrations within 2 seconds.</em>
                         </div>
                     </div>
                 `;
@@ -317,9 +317,10 @@ const char SECURITY_DASHBOARD_HTML[] PROGMEM = R"rawliteral(
             `;
         }
         
-        // Start auto-refresh
+        // Start auto-refresh (vibration needs faster polling so short pulses show up)
         fetchSensorData();
-        updateInterval = setInterval(fetchSensorData, 2000); // Update every 2 seconds
+        const refreshMs = (sensorType === 'vibration') ? 400 : 2000;
+        updateInterval = setInterval(fetchSensorData, refreshMs);
         
         // Cleanup on page unload
         window.addEventListener('beforeunload', () => {

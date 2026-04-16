@@ -31,7 +31,7 @@ Your facilitator will guide you through assembling the breadboard. Here's what y
 1. **Connect Door Sensor**
    - VCC (red) → ESP32 3.3V
    - GND (black) → ESP32 GND
-   - SIG (yellow/white) → ESP32 GPIO 4 (RIGHT side - look for "D4")
+   - SIG (yellow/white) → ESP32 GPIO 14 (LEFT side - look for "D14")
 
 3. **Connect Vibration Sensor**
    - VCC (red) → ESP32 3.3V (can share with door sensor)
@@ -39,7 +39,7 @@ Your facilitator will guide you through assembling the breadboard. Here's what y
    - SIG (yellow/white) → ESP32 GPIO 27 (LEFT side - look for "D27")
 
 4. **Double-Check Connections**
-   - Door sensor SIG → GPIO 4 (RIGHT)
+   - Door sensor SIG → GPIO 14 (LEFT)
    - Vibration sensor SIG → GPIO 27 (LEFT)
    - Both sensors have power (VCC → 3.3V, GND → GND)
    - No wires are touching each other
@@ -54,7 +54,7 @@ Your facilitator will guide you through assembling the breadboard. Here's what y
 - **LED doesn't light**: Check USB connection, try different cable/port
 - **ESP32 gets hot**: Unplug immediately! Check for short circuits
 - **Sensors don't work**: Verify all wires are connected correctly
-- **Can't find pins**: Ask your facilitator for help identifying GPIO 4 and GPIO 27
+- **Can't find pins**: Ask your facilitator for help identifying GPIO 14 and GPIO 27
 
 ---
 
@@ -342,7 +342,7 @@ Use these strategies to get the most out of the activity:
 
 **Sensors don't work?**
 - Verify all wires are connected:
-  - Door sensor: VCC→3.3V, GND→GND, SIG→GPIO 4 (RIGHT)
+  - Door sensor: VCC→3.3V, GND→GND, SIG→GPIO 14 (LEFT)
   - Vibration sensor: VCC→3.3V, GND→GND, SIG→GPIO 27 (LEFT)
 - Push wires firmly into breadboard holes
 - Check that wires aren't loose
@@ -356,7 +356,7 @@ Use these strategies to get the most out of the activity:
 - Ask facilitator for help before trying again
 
 **Can't find the right pins?**
-- GPIO 4 is on the RIGHT side (look for "D4")
+- GPIO 14 is on the LEFT side (look for "D14")
 - GPIO 27 is on the LEFT side (look for "D27")
 - 3.3V and GND are usually clearly labeled
 - Ask your facilitator to help identify pins

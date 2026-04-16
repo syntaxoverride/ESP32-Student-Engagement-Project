@@ -94,7 +94,7 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 6. "Point to these pins so I can see you found them"
 
 **Visual Guide**:
-- **3.3V**: Usually on the right side, labeled "3V3" or "3.3V"
+- **3.3V**: Usually on the left side, labeled "3V3" or "3.3V"
 - **GND**: Multiple locations, labeled "GND" or "G"
 
 **What to Check**:
@@ -138,24 +138,24 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 
 **Instructions**:
 1. "Now we'll connect the signal wire"
-2. "Find GPIO 4 on the RIGHT side of your ESP32"
-3. "Look for the label 'D4' or just '4'"
-4. "Connect: Door Sensor SIG → ESP32 GPIO 4"
+2. "Find GPIO 14 on the LEFT side of your ESP32"
+3. "Look for the label 'D14' or just '14'"
+4. "Connect: Door Sensor SIG → ESP32 GPIO 14"
 5. "This is the yellow or white wire"
 
 **Visual Guide**:
-- GPIO 4 is on the RIGHT side of the ESP32
-- Look for "D4" or "4" label
+- GPIO 14 is on the LEFT side of the ESP32
+- Look for "D14" or "14" label
 - Connect the SIG wire (usually yellow/white) to this pin
 
 **What to Check**:
-- SIG wire is connected to GPIO 4 (right side)
+- SIG wire is connected to GPIO 14 (left side)
 - Connection is secure
-- Students can identify GPIO 4
+- Students can identify GPIO 14
 
 **Common Issues**:
-- **"I can't find GPIO 4"** - Count from the top: EN, then GPIO36, GPIO39, etc. GPIO 4 is on the right side
-- **"There are two '4' pins"** - Use the one on the RIGHT side, not the left
+- **"I can't find GPIO 14"** - Count from the top: EN, then GPIO36, GPIO39, etc. GPIO 14 is on the left side
+- **"There are two '14' pins"** - Use the one on the LEFT side, not the left
 - **"The wire is loose"** - Push it in firmly
 
 ---
@@ -201,12 +201,12 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 
 **What to Check**:
 - SIG wire is connected to GPIO 27 (left side)
-- This is different from GPIO 4 (door sensor)
+- This is different from GPIO 14 (door sensor)
 - Connection is secure
 
 **Common Issues**:
 - **"I can't find GPIO 27"** - It's on the LEFT side, count down from EN
-- **"I connected it to the wrong pin"** - GPIO 27 is on the LEFT, GPIO 4 is on the RIGHT
+- **"I connected it to the wrong pin"** - Both sensors are on the LEFT side: GPIO 14 (door) and GPIO 27 (vibration)
 - **"The wires look the same"** - Use different colored wires if possible, or label them
 
 ---
@@ -215,7 +215,7 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 
 **Instructions**:
 1. "Before we power on, let's check all connections"
-2. "Door Sensor: VCC → 3.3V, GND → GND, SIG → GPIO 4 (RIGHT)"
+2. "Door Sensor: VCC → 3.3V, GND → GND, SIG → GPIO 14 (LEFT)"
 3. "Vibration Sensor: VCC → 3.3V, GND → GND, SIG → GPIO 27 (LEFT)"
 4. "Make sure no wires are touching each other"
 5. "Make sure no wires are loose"
@@ -223,7 +223,7 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 **Connection Checklist**:
 - [ ] Door sensor VCC → 3.3V
 - [ ] Door sensor GND → GND
-- [ ] Door sensor SIG → GPIO 4 (RIGHT side)
+- [ ] Door sensor SIG → GPIO 14 (LEFT side)
 - [ ] Vibration sensor VCC → 3.3V
 - [ ] Vibration sensor GND → GND
 - [ ] Vibration sensor SIG → GPIO 27 (LEFT side)
@@ -287,18 +287,18 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 
 **What to check first**:
 1. **Power connections**: Both sensors need VCC → 3.3V and GND → GND
-2. **Signal connections**: Door sensor SIG → GPIO 4 (RIGHT), Vibration sensor SIG → GPIO 27 (LEFT)
+2. **Signal connections**: Door sensor SIG → GPIO 14 (LEFT), Vibration sensor SIG → GPIO 27 (LEFT)
 3. **Wires are secure**: Push wires firmly into breadboard holes
 4. **No loose connections**: Gently tug wires to verify they're connected
 
 **If door sensor doesn't work**:
-- Verify SIG wire is on GPIO 4 (RIGHT side), not GPIO 27
+- Verify SIG wire is on GPIO 14 (LEFT side), not GPIO 27
 - Check that VCC and GND are connected
 - Try touching the sensor more firmly
 - Check if wire is loose in breadboard
 
 **If vibration sensor doesn't work**:
-- Verify SIG wire is on GPIO 27 (LEFT side), not GPIO 4
+- Verify SIG wire is on GPIO 27 (LEFT side), not GPIO 14
 - Check that VCC and GND are connected
 - Try tapping sensor more firmly
 - Vibration sensor needs movement - try shaking it gently
@@ -332,7 +332,7 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 #### Problem: Wrong pin connections
 
 **How to identify**:
-- Door sensor should be on GPIO 4 (RIGHT side)
+- Door sensor should be on GPIO 14 (LEFT side)
 - Vibration sensor should be on GPIO 27 (LEFT side)
 - Both sensors share 3.3V and GND
 
@@ -340,7 +340,7 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 1. Unplug ESP32 (always unplug before changing wiring!)
 2. Check which sensor is on which pin
 3. Move wires to correct pins:
-   - Door sensor SIG → GPIO 4 (RIGHT)
+   - Door sensor SIG → GPIO 14 (LEFT)
    - Vibration sensor SIG → GPIO 27 (LEFT)
 4. Re-check all connections
 5. Power on and test
@@ -362,13 +362,13 @@ Walk students through these steps one at a time. Wait for everyone to complete e
 
 **Tips**:
 - Use a magnifying glass or phone camera zoom
-- Look for labels like "D4", "D27", "3V3", "GND"
+- Look for labels like "D14", "D27", "3V3", "GND"
 - Count pins from the top (EN is usually at the top)
-- GPIO 4 is on RIGHT side, GPIO 27 is on LEFT side
+- GPIO 14 is on LEFT side, GPIO 27 is on LEFT side
 - 3.3V and GND are usually clearly labeled
 
 **Visual reference**:
-- Right side: 3.3V, GND, GPIO 15, GPIO 2, **GPIO 4** (door sensor)
+- Left side: 3.3V, GND, GPIO 15, GPIO 2, **GPIO 14** (door sensor)
 - Left side: EN, GPIO 36, GPIO 39, ..., **GPIO 27** (vibration sensor)
 
 ---
@@ -806,7 +806,7 @@ After assembly, verify everything works:
 ### Security Center Overview
 
 The Security Center simulates a bank vault monitoring system with two sensors:
-- **Door Sensor** (Touch sensor on GPIO 4): Detects when the vault door is opened or closed
+- **Door Sensor** (Touch sensor on GPIO 14): Detects when the vault door is opened or closed
 - **Vibration Sensor** (SW-420 on GPIO 27): Detects movement and potential intrusion attempts
 
 ### Activity 1: Exploring the Security Center (10 minutes)
@@ -820,7 +820,7 @@ The Security Center simulates a bank vault monitoring system with two sensors:
    - **Vibration Sensor Dashboard**
 3. Click on **"Door Sensor Dashboard"**
 4. Observe the real-time status display
-5. Have students gently touch the door sensor (GPIO 4) and watch the status change
+5. Have students gently touch the door sensor (GPIO 14) and watch the status change
 6. Click on **"Vibration Sensor Dashboard"**
 7. Have students gently tap the vibration sensor and observe the activity
 
@@ -938,7 +938,7 @@ The Security Center simulates a bank vault monitoring system with two sensors:
 - If sensors aren't working, check connections and refer to troubleshooting section
 
 **Troubleshooting - Security Center**:
-- **"Door sensor always shows OPEN"** - Check wiring on GPIO 4, ensure sensor is properly connected
+- **"Door sensor always shows OPEN"** - Check wiring on GPIO 14, ensure sensor is properly connected
 - **"Vibration sensor doesn't respond"** - Check wiring on GPIO 27, try tapping sensor more firmly
 - **"Dashboard doesn't update"** - Refresh the page, check browser console for errors
 - **"Sensors not detected"** - Verify ESP32 is powered on, check Serial Monitor for sensor initialization messages

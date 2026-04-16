@@ -23,24 +23,24 @@ void IRAM_ATTR vibrationInterruptHandler() {
 
 void SensorManager::initialize() {
   Serial.println("Initializing Security Center sensors...");
-  
+
   // Initialize door sensor (touch switch or capacitive touch)
   if (DOOR_SENSOR_DIGITAL) {
-    pinMode(DOOR_SENSOR_PIN, INPUT_PULLUP);
+    pinMode(DOOR_SENSOR_PIN, INPUT);
     Serial.print("Door sensor (digital touch switch) initialized on GPIO ");
   } else {
     Serial.print("Door sensor (capacitive touch) initialized on GPIO ");
   }
   Serial.println(DOOR_SENSOR_PIN);
   doorInitialized = true;
-  
+
   // Initialize vibration sensor with INTERRUPT
   // This catches brief pulses that polling would miss!
   pinMode(VIBRATION_SENSOR_PIN, INPUT_PULLUP);
-  
+
   // Attach interrupt - fires on ANY state change (rising or falling)
   attachInterrupt(digitalPinToInterrupt(VIBRATION_SENSOR_PIN), vibrationInterruptHandler, CHANGE);
-  
+
   vibrationInitialized = true;
   Serial.print("Vibration sensor initialized on GPIO ");
   Serial.print(VIBRATION_SENSOR_PIN);
@@ -48,11 +48,11 @@ void SensorManager::initialize() {
   Serial.println("Using hardware interrupt to catch brief pulses!");
   Serial.print("Initial pin state: ");
   Serial.println(digitalRead(VIBRATION_SENSOR_PIN) ? "HIGH" : "LOW");
-  
+
   // Clear any initial trigger from setup
   delay(100);
   vibrationTriggered = false;
-  
+
   Serial.println("Security Center sensors ready!");
 }
 
@@ -61,21 +61,21 @@ DoorData SensorManager::readDoor() {
   data.valid = false;
   data.rawValue = 0;
   data.doorOpen = false;
-  
+
   if (!doorInitialized) {
     return data;
   }
-  
+
   if (DOOR_SENSOR_DIGITAL) {
     int pinValue = digitalRead(DOOR_SENSOR_PIN);
     data.rawValue = pinValue;
-    data.doorOpen = (pinValue == LOW); // LOW = touched = door open
+    data.doorOpen = (pinValue == HIGH); // HIGH = touched = door open
   } else {
     int touchValue = touchRead(DOOR_SENSOR_PIN);
     data.rawValue = touchValue;
     data.doorOpen = (touchValue < 40);
   }
-  
+
   data.valid = true;
   return data;
 }
@@ -86,33 +86,33 @@ VibrationData SensorManager::readVibration() {
   data.detected = false;
   data.level = 0;
   data.alert = false;
-  
+
   if (!vibrationInitialized) {
     return data;
   }
-  
+
   unsigned long now = millis();
-  
+
   // Check if interrupt was triggered since last read
   if (vibrationTriggered) {
     // Vibration detected by interrupt!
     data.detected = true;
     vibrationCount++;
     lastVibrationTime = now;
-    
+
     // Clear the flag (but keep detecting for 2 seconds)
     vibrationTriggered = false;
-    
+
     Serial.print("*** VIBRATION DETECTED via interrupt! Count: ");
     Serial.print(vibrationCount);
     Serial.println(" ***");
   }
-  
+
   // Keep vibration "active" for 2 seconds after last detection
   unsigned long timeSinceVibration = now - lastVibrationTime;
   if (timeSinceVibration < 2000 && lastVibrationTime > 0) {
     data.detected = true;
-    
+
     // Calculate decay level (100% -> 0% over 2 seconds)
     int decayLevel = 100 - (int)(timeSinceVibration / 20);
     data.level = (decayLevel > 0) ? decayLevel : 0;
@@ -123,13 +123,13 @@ VibrationData SensorManager::readVibration() {
     }
     data.level = 0;
   }
-  
+
   // Alert if multiple vibrations detected (break-in attempt)
   if (vibrationCount >= 3) {
     data.alert = true;
     data.level = 100; // Max level during alert
   }
-  
+
   // Debug output every 30 seconds (reduced for production)
   static unsigned long lastDebugTime = 0;
   if (now - lastDebugTime > 30000) {
@@ -141,7 +141,7 @@ VibrationData SensorManager::readVibration() {
     Serial.println(data.alert ? "YES" : "no");
     lastDebugTime = now;
   }
-  
+
   data.valid = true;
   return data;
 }

@@ -30,7 +30,7 @@ An outreach-friendly, hands-on project for grades 7–12 that combines computer 
 
 1. **Flash the firmware** to your ESP32-WROOM (see Setup Instructions below)
 2. **Connect sensors** (optional - see Security Center Pinout below):
-   - Touch sensor: GPIO 4 (built-in, no wiring needed)
+   - Touch sensor: GPIO 14 (digital touch switch module)
    - Vibration sensor: GPIO 27 (SW-420 module)
 3. **Power on** the ESP32 (USB cable or power adapter)
 4. **Connect** to Wi-Fi network: `VaultGuard-AI` (or `VaultGuard-AI 1`, `VaultGuard-AI 2`, etc. if customized)
@@ -48,7 +48,7 @@ An outreach-friendly, hands-on project for grades 7–12 that combines computer 
 
 ### Optional (for Security Center):
 - SW-420 vibration sensor module (for intrusion detection)
-- Digital touch switch (for door sensor - optional, can use built-in capacitive touch on GPIO 4)
+- Digital touch switch (for door sensor on GPIO 14)
 
 ## Setup Instructions
 
@@ -151,14 +151,14 @@ pio device monitor         # View serial output
 |--------|------|-----------|---------------|-------------------|
 | **Door (Touch)** | VCC | 3.3V | Either side | "3V3" or "3.3V" |
 | **Door (Touch)** | GND | GND | Either side | "GND" |
-| **Door (Touch)** | SIG | **GPIO 4** | **RIGHT** | "D4" or "4" |
+| **Door (Touch)** | SIG | **GPIO 14** | **LEFT** | "D14" or "14" |
 | **Vibration** | VCC | 3.3V | Either side | "3V3" or "3.3V" |
 | **Vibration** | GND | GND | Either side | "GND" |
 | **Vibration** | SIG | **GPIO 27** | **LEFT** | "D27" or "27" |
 
 ### Why These Pins?
 
-- **GPIO 4** (Right side) - Safe pin for digital input
+- **GPIO 14** (Left side) - Safe pin for digital input
 - **GPIO 27** (Left side) - Safe pin, NOT a boot pin
 - **GPIO 15 was avoided** - It's a strapping/boot pin that can cause issues!
 
@@ -179,22 +179,22 @@ pio device monitor         # View serial output
     GPIO32                         
     GPIO33                         GPIO15
     GPIO25                         GPIO2
-    GPIO26                         GPIO4 ←── Touch SIG (DOOR)
+    GPIO26                         GPIO4
  →  GPIO27 ←── Vibration SIG       ...
-    GPIO14                         
+ →  GPIO14 ←── Touch SIG (DOOR)    
     GPIO12                         
     ...                            ...
 ```
 
 ### Step-by-Step Wiring
 
-#### Door Sensor (Touch Switch) - RIGHT SIDE
+#### Door Sensor (Touch Switch) - LEFT SIDE
 
-1. Find **GPIO 4** on the RIGHT side of your ESP32 (look for "D4" label)
+1. Find **GPIO 14** on the LEFT side of your ESP32 (look for "D14" label)
 2. Connect:
    - Touch Switch **VCC** → ESP32 **3.3V**
    - Touch Switch **GND** → ESP32 **GND**
-   - Touch Switch **SIG/DO** → ESP32 **GPIO 4**
+   - Touch Switch **SIG/DO** → ESP32 **GPIO 14**
 
 #### Vibration Sensor - LEFT SIDE
 
@@ -209,13 +209,14 @@ pio device monitor         # View serial output
 After uploading firmware, open Serial Monitor (115200 baud). You should see:
 
 ```
-Door sensor (digital touch switch) initialized on GPIO 4
+Door sensor (digital touch switch) initialized on GPIO 14
 Vibration sensor initialized on GPIO 27 with INTERRUPT
+Using hardware interrupt to catch brief pulses!
 Initial pin state: HIGH
 Security Center sensors ready!
 ```
 
-**If it says "LOW (check wiring)"** - The vibration sensor wiring is incorrect.
+**If vibration never triggers** — use the module’s **DO/D0** output (not **AO**), confirm **SIG → GPIO 27**, and adjust the **sensitivity potentiometer** on the SW-420 until you see `*** VIBRATION DETECTED via interrupt!` in the Serial Monitor when you tap the sensor.
 
 ### Security Scenarios
 
@@ -307,7 +308,7 @@ ESP-32/
 
 ### Security Center (Bank Vault Security System)
 
-1. **Touch Sensor**: Built-in ESP32 capacitive touch on GPIO 4 detects authorized access
+1. **Touch Sensor**: Digital touch switch on GPIO 14 detects authorized access
 2. **Vibration Sensor**: SW-420 module on GPIO 27 detects break-in attempts
 3. **Real-time Monitoring**: Live dashboards show access control and intrusion detection
 4. **Vault Status**: Dynamic status indicator shows SECURE, ACCESS GRANTED, or BREACH DETECTED
@@ -460,14 +461,14 @@ All changes are in-memory and reset on reboot. Students can experiment freely!
 
 **Solutions:**
 1. Check Serial Monitor for sensor initialization messages
-2. Verify GPIO 4 (touch) and GPIO 27 (vibration) connections (see Security Center Pinout above)
+2. Verify GPIO 14 (touch) and GPIO 27 (vibration) connections (see Security Center Pinout above)
 3. **Vibration Sensor**:
    - Check the LED on the module - shake it, LED should light up
    - Verify GPIO 27 is on the LEFT side of the board
    - Check wiring: SIG → GPIO 27, VCC → 3.3V, GND → GND
 4. **Door Sensor**:
    - Check Serial Monitor for pin readings
-   - Verify GPIO 4 is on the RIGHT side of board
+   - Verify GPIO 14 is on the LEFT side of board
    - Activate the touch switch - dashboard should update
 
 ## Quick Reference
