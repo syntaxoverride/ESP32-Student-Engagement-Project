@@ -8,7 +8,7 @@ const char SPLASH_HTML[] PROGMEM = R"rawliteral(
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>VAULTGUARD AI PORTAL</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
@@ -17,6 +17,10 @@ const char SPLASH_HTML[] PROGMEM = R"rawliteral(
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        html {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
         body {
             font-family: 'Rajdhani', 'Courier New', 'Consolas', 'Monaco', monospace;
@@ -27,11 +31,17 @@ const char SPLASH_HTML[] PROGMEM = R"rawliteral(
             background-size: 50px 50px;
             color: #00ffff;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: max(20px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(28px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+            box-sizing: border-box;
         }
         body::before {
             content: '';
@@ -48,9 +58,10 @@ const char SPLASH_HTML[] PROGMEM = R"rawliteral(
             position: relative;
             z-index: 1;
             text-align: center;
-            padding: 20px;
+            padding: 8px 0 12px;
             max-width: 800px;
             width: 100%;
+            flex: 0 0 auto;
         }
         h1 {
             font-family: 'Orbitron', monospace;

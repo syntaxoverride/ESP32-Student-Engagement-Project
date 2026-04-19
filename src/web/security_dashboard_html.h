@@ -8,7 +8,7 @@ const char SECURITY_DASHBOARD_HTML[] PROGMEM = R"rawliteral(
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>SECURITY DASHBOARD</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
@@ -17,6 +17,10 @@ const char SECURITY_DASHBOARD_HTML[] PROGMEM = R"rawliteral(
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        html {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
         }
         body {
             font-family: 'Rajdhani', 'Courier New', 'Consolas', 'Monaco', monospace;
@@ -27,9 +31,13 @@ const char SECURITY_DASHBOARD_HTML[] PROGMEM = R"rawliteral(
             background-size: 50px 50px;
             color: #ffd700;
             line-height: 1.6;
-            padding: 10px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: max(10px, env(safe-area-inset-top, 0px)) max(10px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px));
             position: relative;
             overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         body::before {
             content: '';

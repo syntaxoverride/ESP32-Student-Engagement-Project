@@ -8,7 +8,7 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>VAULTGUARD AI // PHISHING DETECTOR</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
@@ -24,6 +24,10 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
             padding: 0;
             box-sizing: border-box;
         }
+        html {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
         body {
             font-family: 'Rajdhani', 'Courier New', 'Consolas', 'Monaco', monospace;
             background: var(--background-color);
@@ -33,9 +37,13 @@ const char INDEX_HTML[] PROGMEM = R"rawliteral(
             background-size: 50px 50px;
             color: #00ffff;
             line-height: 1.6;
-            padding: 10px;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: max(10px, env(safe-area-inset-top, 0px)) max(10px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(10px, env(safe-area-inset-left, 0px));
             position: relative;
             overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         body::before {
             content: '';
