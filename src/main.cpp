@@ -2,6 +2,7 @@
 #include <WebServer.h>
 #include <DNSServer.h>
 #include <ESPmDNS.h>
+#include <esp_wifi.h>
 #include "web/index_html.h"
 #include "web/splash_html.h"
 #include "web/security_html.h"
@@ -84,13 +85,30 @@ void setup() {
   // Initialize sensors
   SensorManager::initialize();
   
-  // Configure WiFi AP
+  // WIFI_CHANNEL is set per-station by build_station.py (channels 1/6/11).
+  // Cap clients at 4: one student per station, headroom for reconnects.
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(AP_IP, AP_GATEWAY, AP_SUBNET);
-  WiFi.softAP(AP_SSID);
-  
+  WiFi.softAP(AP_SSID, nullptr, WIFI_CHANNEL, 0, 4);
+  // Clients sit on the same desk; lowest TX power the API exposes (~0.8 mW)
+  // shrinks each AP's footprint a little.
+  WiFi.setTxPower(WIFI_POWER_MINUS_1dBm);
+
+  // 20 co-located APs share airtime via CSMA/CA. Two airtime tweaks:
+  //   1. Drop 802.11b support so beacons + management go out at >=6 Mbps
+  //      instead of 1 Mbps (~6x less airtime per management frame).
+  //   2. Stretch beacon interval from default 100ms to 500ms so the room's
+  //      ~20 beacons/sec drops to ~4/sec.
+  esp_wifi_set_protocol(WIFI_IF_AP, WIFI_PROTOCOL_11G | WIFI_PROTOCOL_11N);
+  wifi_config_t apConfig;
+  esp_wifi_get_config(WIFI_IF_AP, &apConfig);
+  apConfig.ap.beacon_interval = 500;
+  esp_wifi_set_config(WIFI_IF_AP, &apConfig);
+
   Serial.print("AP SSID: ");
   Serial.println(AP_SSID);
+  Serial.print("AP Channel: ");
+  Serial.println(WIFI_CHANNEL);
   Serial.print("AP IP: ");
   Serial.println(AP_IP);
   

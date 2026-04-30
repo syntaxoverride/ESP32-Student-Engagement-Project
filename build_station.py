@@ -56,28 +56,35 @@ def find_pio_command():
     
     return None
 
+def settings_for_station(station_num):
+    """Per-station build settings. Add new flags here as the project grows."""
+    # Stagger across the three non-overlapping 2.4GHz channels so adjacent
+    # stations (WS1 next to WS2) never collide on the same channel.
+    channels = [1, 6, 11]
+    return {
+        "STATION_NUMBER": station_num,
+        "WIFI_CHANNEL": channels[(station_num - 1) % len(channels)],
+    }
+
 def update_platformio_ini(station_num, platformio_path):
-    """Temporarily update platformio.ini with station number."""
-    # Convert Path to string for file operations
+    """Temporarily update platformio.ini with per-station build flags."""
     platformio_str = str(platformio_path)
-    
-    # Read the file
+
     with open(platformio_str, 'r') as f:
         content = f.read()
-    
-    # Backup original
+
     backup_path = platformio_str + '.backup'
     shutil.copy2(platformio_str, backup_path)
-    
-    # Replace STATION_NUMBER line
-    pattern = r'-DSTATION_NUMBER=\d+'
-    replacement = f'-DSTATION_NUMBER={station_num}'
-    new_content = re.sub(pattern, replacement, content)
-    
-    # Write updated content
+
+    new_content = content
+    for flag, value in settings_for_station(station_num).items():
+        pattern = rf'-D{flag}=\d+'
+        replacement = f'-D{flag}={value}'
+        new_content = re.sub(pattern, replacement, new_content)
+
     with open(platformio_str, 'w') as f:
         f.write(new_content)
-    
+
     return backup_path
 
 def restore_platformio_ini(platformio_path, backup_path):
@@ -125,9 +132,11 @@ def run_once(pio_cmd, station_num, action, platformio_path):
 
     if action != "monitor":
         backup_path = update_platformio_ini(station_num, platformio_path)
+        settings = settings_for_station(station_num)
         print(f"\n{'='*60}")
         print(f"Building for Station #{station_num}")
         print(f"Wi-Fi SSID will be: VaultGuard-AI {station_num}")
+        print(f"Wi-Fi Channel:     {settings['WIFI_CHANNEL']}")
         print(f"Portal Title will be: VaultGuard AI Portal #{station_num}")
         print(f"{'='*60}\n")
 
